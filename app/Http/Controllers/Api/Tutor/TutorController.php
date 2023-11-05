@@ -115,13 +115,18 @@ class TutorController extends Controller
         $id_tutor = $data['id_tutor'];
         $id_blog = $data['id_blog'];
 
-        $wishlist = WishlistBlog::create([
-            'id_tutor' => $id_tutor,
-            'id_blog' => $id_blog
-        ]);
-
-        if($wishlist){
-            return response()->json(['status'=>'Đã thêm bài viết vào danh sách yêu thích thành công']);
+        $result = WishlistBlog::where('id_blog',$id_blog)->where('id_tutor',$id_tutor)->first();
+        if($result){
+            return response()->json(['errors'=>'Bài viết đã có trong danh sách yêu thích']);
+        }else{
+            $wishlist = WishlistBlog::create([
+                'id_tutor' => $id_tutor,
+                'id_blog' => $id_blog
+            ]);
+            
+            if($wishlist){
+                return response()->json(['status'=>'Đã thêm bài viết vào danh sách yêu thích thành công']);
+            }
         }
     }
 
@@ -132,7 +137,12 @@ class TutorController extends Controller
         $wishlists = WishlistBlog::where('id_tutor',$id)->get();
 
         foreach($wishlists as $wishlist){
-            $listBlog[] = $wishlist->blog;
+            $wishlist->class = $wishlist->blog->toClass->name;
+            $wishlist->subject = $wishlist->blog->subject->name;
+            $wishlist->country = $wishlist->blog->country->name;
+            $wishlist->district = $wishlist->blog->district->name;
+
+            $listBlog[] = $wishlist;
         }
 
         return response()->json(['listblog'=>$listBlog]);

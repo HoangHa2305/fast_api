@@ -110,27 +110,39 @@ class MemberController extends Controller
         $id_member = $data['id_member'];
         $id_tutor = $data['id_tutor'];
 
-        $wishlist = WishlistMember::create([
-            'id_member' => $id_member,
-            'id_tutor' => $id_tutor
-        ]);
-
-        if($wishlist){
-            return response()->json(['status'=>'Đã thêm gia sư vào danh sách yêu thích thành công']);
+        $result = WishlistMember::where('id_tutor',$id_tutor)->where('id_member',$id_member)->first();
+        if($result){
+            return response()->json(['errors'=>'Gia sư đã có trong danh sách yêu thích']);
+        }else{
+            $wishlist = WishlistMember::create([
+                'id_member' => $id_member,
+                'id_tutor' => $id_tutor
+            ]);
+    
+            if($wishlist){
+                return response()->json(['status'=>'Đã thêm gia sư vào danh sách yêu thích thành công']);
+            }
         }
     }
 
     public function getListWish(string $id)
     {
-        $listmember = [];
+        $listutor = [];
 
         $wishlists = WishlistMember::where('id_member',$id)->get();
 
-        foreach($wishlists as $wishlist){
-            $listutor[] = $wishlist->tutor;
-        }
+        $result = [];
 
-        return response()->json(['listutor'=>$listmember]);
+        foreach($wishlists as $wishlist){
+            $wishlist->class =  $wishlist->tutor->class->name;
+            $wishlist->subject = $wishlist->tutor->subject->name;
+            $wishlist->district =  $wishlist->tutor->district->name;
+            $wishlist->country = $wishlist->tutor->country->name;
+            $wishlist->name = $wishlist->tutor->name;
+        }
+        $listutor[] = $wishlist;
+
+        return response()->json(['listutor'=>$listutor]);
     }
 
     public function searchTutor(Request $request)
