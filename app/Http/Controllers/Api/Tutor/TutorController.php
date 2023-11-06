@@ -96,12 +96,36 @@ class TutorController extends Controller
 
         $email = $data['email'];
         $password = $data['password'];
+        // $email = $request->email;
+        // $password = $request->password;
 
         $tutor = Tutor::where('email',$email)->first();
+        $new_tutor['id'] = $tutor->id;
+        $new_tutor['username'] = $tutor->username;
+        $new_tutor['email'] = $tutor->email;
+        $new_tutor['phone'] = $tutor->phone;
+        $new_tutor['name'] = $tutor->name;
+        $new_tutor['sex'] = $tutor->sex;
+        $new_tutor['birth'] = $tutor->birth;
+        $new_tutor['country'] = $tutor->country->name;
+        $new_tutor['district'] = $tutor->district->name;
+        $new_tutor['address'] = $tutor->address;
+        $new_tutor['desc'] = $tutor->desc;
+        $new_tutor['role'] = $tutor->role;
+        $new_tutor['time'] = $tutor->time;
+        $new_tutor['level'] = $tutor->level;
+        $new_tutor['special'] = $tutor->special;
+        $new_tutor['class'] = $tutor->class->name;
+        $new_tutor['subject'] = $tutor->subject->name;
+        $new_tutor['type'] = $tutor->type;
+        $new_tutor['schedule'] = $tutor->schedule;
+        $new_tutor['avatar'] = $tutor->avatar;
+        $new_tutor['certificate'] = $tutor->certificate;
+        $new_tutor['active'] = $tutor->active;
         if($tutor && Hash::check($password,$tutor->password)){
             return response()->json([
                 'status' => 'Đăng nhập thành công',
-                'tutor' => $tutor
+                'tutor' => $new_tutor
             ]);
         }else{
             return response()->json(['errors'=>'Đăng nhập thất bại']);
@@ -153,9 +177,25 @@ class TutorController extends Controller
         $data = $request->json()->all();
 
         $word = $data['word'];
+        $result = [];
 
-        $blog = Blog::where('title','like','%$word%')->get();
+        $blogs = Blog::where('title','like','%$word%')->get();
+        foreach($blogs as $blog){
+            $new_blog['id'] = $blog->id;
+            $new_blog['title'] = $blog->title;
+            $new_blog['member'] = $blog->member->name;
+            $new_blog['class'] = $blog->toClass->name;
+            $new_blog['subject'] = $blog->subject->name;
+            $new_blog['price'] = $blog->price;
+            $new_blog['content'] = $blog->content;
+            $new_blog['date'] = $blog->date;
+            $new_blog['active'] = $blog->active;
+            $new_blog['country'] = $blog->country->name;
+            $new_blog['district'] = $blog->district->name;
 
-        return response()->json(['blog'=>$blog]);
+            $result[] = $new_blog;
+        }
+
+        return response()->json(['blog'=>$result]);
     }
 }
