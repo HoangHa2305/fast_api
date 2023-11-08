@@ -90,6 +90,45 @@ class TutorController extends Controller
         }
     }
 
+    public function updateTutor(Request $request)
+    {
+        $data = $request->all();
+        $id = $data['id'];
+
+        $avatar = $request->get('avatar');
+        $certificate = $request->get('certificate');
+        if($avatar){
+            $avatarData = explode(',', $avatar)[1];
+            $avatarBinary = base64_decode($avatarData);
+            $avatar_new = time() . '_avatar.png';
+            $data['avatar'] = $avatar_new;
+        }
+        if($certificate){
+            $certificateData = explode(',', $certificate)[1];
+            $certificateBinary = base64_decode($certificateData);
+            $certificate_new =  time() . '_certificate.png';
+            $data['certificate'] = $certificate_new;
+        }
+        if($data['password']){
+            $data['password'] = bcrypt($data['password']); 
+        }
+
+        $tutor = Tutor::findOrFail($id);
+        if($tutor->update($data)){
+            $uploadPath = public_path('upload');
+            if($avatar){
+                file_put_contents($uploadPath . '/' . $avatar_new, $avatarBinary);
+            }
+            if($certificate){
+                file_put_contents($uploadPath . '/' . $certificate_new, $certificateBinary);
+            }
+            return response()->json(['status'=>'Cập nhật tài khoản gia sư thành công']);
+        }else{
+            return response()->json(['errors'=>'Cập nhật tài khoản gia sư thất bại']);
+        }
+
+    }
+
     public function loginTuor(Request $request)
     {
         $data = $request->json()->all();

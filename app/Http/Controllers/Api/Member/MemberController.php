@@ -213,10 +213,10 @@ class MemberController extends Controller
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua ATM MoMo";
-        $amount = $total_momo;
+        $amount = "100000";
         $orderId = time() ."";
-        $redirectUrl = "http://localhost:3000/memberParents/LoginParents";
-        $ipnUrl = "http://localhost:3000/memberParents/LoginParents";
+        $redirectUrl = "123";
+        $ipnUrl = "123";
         $extraData = "";
 
         $requestId = time() . "";
@@ -239,7 +239,7 @@ class MemberController extends Controller
             'requestType' => $requestType,
             'signature' => $signature);
         $result = $this->execPostRequest($endpoint, json_encode($data));
-        
+        return $result;
         $jsonResult = json_decode($result, true);  // decode json
 
         //Just a example, please check more in there

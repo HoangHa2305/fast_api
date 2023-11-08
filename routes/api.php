@@ -46,6 +46,7 @@ Route::get('view/tutor/{id}',[TutorApiController::class,'viewInfoTutor']);
 
 Route::post('tutor/register',[TutorController::class,'registerTutor']);
 Route::post('tutor/login',[TutorController::class,'loginTuor']);
+Route::post('tutor/update',[TutorController::class,'updateTutor']);
 Route::post('tutor/add/wishlist/blog',[TutorController::class,'addTowishlistBlog']);
 Route::get('tutor/get/wishlist/blog/{id}',[TutorController::class,'getListBlog']);
 Route::post('tutor/search',[TutorController::class,'searchBlog']);
