@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\Member\BlogController;
 use App\Http\Controllers\Api\Member\MemberController;
 use App\Http\Controllers\Api\Tutor\TutorController;
@@ -52,4 +53,6 @@ Route::get('tutor/get/wishlist/blog/{id}',[TutorController::class,'getListBlog']
 Route::post('tutor/search',[TutorController::class,'searchBlog']);
 Route::post('tutor/makeappoint',[TutorApiController::class,'makeAppoiment']);  //Đặt lịch hẹn
 
+
+Route::post('admin/login',[AdminController::class,'login']);
 

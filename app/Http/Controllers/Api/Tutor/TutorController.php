@@ -94,6 +94,7 @@ class TutorController extends Controller
     {
         $data = $request->all();
         $id = $data['id'];
+        $tutor = Tutor::findOrFail($id);
 
         $avatar = $request->get('avatar');
         $certificate = $request->get('certificate');
@@ -102,18 +103,23 @@ class TutorController extends Controller
             $avatarBinary = base64_decode($avatarData);
             $avatar_new = time() . '_avatar.png';
             $data['avatar'] = $avatar_new;
+        }else{
+            $data['avatar'] = $tutor->avatar;
         }
         if($certificate){
             $certificateData = explode(',', $certificate)[1];
             $certificateBinary = base64_decode($certificateData);
             $certificate_new =  time() . '_certificate.png';
             $data['certificate'] = $certificate_new;
+        }else{
+            $data['certificate'] = $tutor->certificate;
         }
         if($data['password']){
             $data['password'] = bcrypt($data['password']); 
+        }else{
+            $data['password'] = $tutor->password;
         }
 
-        $tutor = Tutor::findOrFail($id);
         if($tutor->update($data)){
             $uploadPath = public_path('upload');
             if($avatar){
