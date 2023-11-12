@@ -134,13 +134,14 @@ class MemberController extends Controller
         $result = [];
 
         foreach($wishlists as $wishlist){
-            $wishlist->class =  $wishlist->tutor->class->name;
-            $wishlist->subject = $wishlist->tutor->subject->name;
-            $wishlist->district =  $wishlist->tutor->district->name;
-            $wishlist->country = $wishlist->tutor->country->name;
-            $wishlist->name = $wishlist->tutor->name;
+            $result['class'] =  $wishlist->tutor->class->name;
+            $result['subject'] = $wishlist->tutor->subject->name;
+            $result['district'] =  $wishlist->tutor->district->name;
+            $result['country'] = $wishlist->tutor->country->name;
+            $result['name'] = $wishlist->tutor->name;
+
+            $listutor[] = $result;
         }
-        $listutor[] = $wishlist;
 
         return response()->json(['listutor'=>$listutor]);
     }

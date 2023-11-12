@@ -206,12 +206,12 @@ class TutorController extends Controller
         $wishlists = WishlistBlog::where('id_tutor',$id)->get();
 
         foreach($wishlists as $wishlist){
-            $wishlist->class = $wishlist->blog->toClass->name;
-            $wishlist->subject = $wishlist->blog->subject->name;
-            $wishlist->country = $wishlist->blog->country->name;
-            $wishlist->district = $wishlist->blog->district->name;
+            $result['class'] = $wishlist->blog->toClass->name;
+            $result['subject'] = $wishlist->blog->subject->name;
+            $result['country'] = $wishlist->blog->country->name;
+            $result['district'] = $wishlist->blog->district->name;
 
-            $listBlog[] = $wishlist;
+            $listBlog[] = $result;
         }
 
         return response()->json(['listblog'=>$listBlog]);
