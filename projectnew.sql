@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 05, 2023 lúc 08:15 PM
+-- Thời gian đã tạo: Th10 13, 2023 lúc 07:10 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -82,6 +82,21 @@ INSERT INTO `class` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (13, 'Lớp 10', '2023-10-04 01:26:48', '2023-10-04 01:26:48'),
 (14, 'Lớp 11', '2023-10-04 01:26:51', '2023-10-04 01:26:51'),
 (15, 'Lớp 12', '2023-10-04 01:27:07', '2023-10-04 01:27:07');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `comment`
+--
+
+CREATE TABLE `comment` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `id_tutor` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -968,7 +983,22 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2023_10_20_173012_update_active_tutor_table', 9),
 (14, '2023_10_20_183318_create_wishlistmember_table', 10),
 (15, '2023_10_30_174105_create_wishlist_blog_table', 11),
-(16, '2023_11_05_185341_create_schedule_table', 12);
+(16, '2023_11_05_185341_create_schedule_table', 12),
+(17, '2023_11_09_173735_create_rate_table', 13),
+(18, '2023_11_09_174904_create_comment_table', 14),
+(19, '2014_10_12_100000_create_password_resets_table', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -997,6 +1027,21 @@ CREATE TABLE `personal_access_tokens` (
   `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `rate`
+--
+
+CREATE TABLE `rate` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `id_tutor` int(11) NOT NULL,
+  `rate` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1218,7 +1263,7 @@ CREATE TABLE `tutor` (
 INSERT INTO `tutor` (`id`, `username`, `email`, `password`, `name`, `phone`, `sex`, `birth`, `id_country`, `id_district`, `address`, `desc`, `role`, `time`, `level`, `special`, `id_class`, `id_subject`, `type`, `schedule`, `avatar`, `certificate`, `active`, `created_at`, `updated_at`) VALUES
 (1, 'tho', 'tho@gmail.com', '$2y$10$4K5U8dOqPrJ3NBBPqtFSFuH9V5tdivFaWa0tcQTS.TGz7vFcDxFfa', 'Phạm Đăc Thịnh', '0777118502', 'Nam', '2023-11-09', 2, 19, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'sinh vien', '150000', 'gioi', 'Math', 5, 34, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1698902069_avatar.png', '1698902069_certificate.png', 0, '2023-11-02 12:14:29', '2023-11-02 12:14:29'),
 (2, 'thịnh', '123@gmail.com', '$2y$10$XrNdkgYhauMfiNqKbzV57.RK7amA4d/vYh2Q7fW99667IfvZZNVJS', 'Nguyễn Văn A', '0777118502', 'Nam', '2002-12-04', 11, 125, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'dvsbsfb', 'Tutor', '120', 'gioi', 'Math', 8, 69, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699046553_avatar.png', '1699046553_certificate.png', 0, '2023-11-04 04:22:33', '2023-11-04 04:22:33'),
-(3, 'thịnh', 'nhathoa3062002@gmail.com', '$2y$10$yl05rrfmn22KO6JfoQuFZOp0Fm4bHtshJ8ZYL5yXhyyEwsfNz12ey', 'Phạm Đoàn Thuý Vy', '0777118502', 'Nam', '2002-12-03', 16, 173, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'IT', '200,000', 'good', 'Math', 12, 111, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699051738_avatar.png', '1699051738_certificate.png', 0, '2023-11-04 05:48:58', '2023-11-04 05:48:58');
+(3, 'thịnh', 'nhathoa3062002@gmail.com', '$2y$10$yl05rrfmn22KO6JfoQuFZOp0Fm4bHtshJ8ZYL5yXhyyEwsfNz12ey', 'Phạm Đoàn Thuý Vy', '0777118502', 'Nam', '2002-12-03', 16, 173, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'IT', '200,000', 'good', 'Math', 12, 111, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699051738_avatar.png', '1699051738_certificate.png', 1, '2023-11-04 05:48:58', '2023-11-13 10:46:13');
 
 -- --------------------------------------------------------
 
@@ -1236,6 +1281,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$AmS0yFJkbwQFz2pSiqz7I.nxeoPZ00VvTEg.LlnGYdtYQwvSxq8Oi', NULL, '2023-11-11 11:17:36', '2023-11-11 11:17:36');
 
 -- --------------------------------------------------------
 
@@ -1308,6 +1360,12 @@ ALTER TABLE `class`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `country`
 --
 ALTER TABLE `country`
@@ -1339,6 +1397,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
 -- Chỉ mục cho bảng `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -1351,6 +1415,12 @@ ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Chỉ mục cho bảng `rate`
+--
+ALTER TABLE `rate`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `schedule`
@@ -1406,6 +1476,12 @@ ALTER TABLE `class`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT cho bảng `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `country`
 --
 ALTER TABLE `country`
@@ -1433,12 +1509,18 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `rate`
+--
+ALTER TABLE `rate`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1463,7 +1545,7 @@ ALTER TABLE `tutor`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `wishlistblog`

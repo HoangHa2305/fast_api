@@ -61,4 +61,9 @@ Route::post('tutor/makeappoint',[TutorApiController::class,'makeAppoiment']);  /
 
 
 Route::post('admin/login',[AdminController::class,'login']); //
+Route::get('admin/list/tutor',[AdminController::class,'getaccountTutor']);
+Route::get('admin/accept/tutor/{id}',[AdminController::class,'acceptTutor']);
+Route::get('admin/list/blog',[AdminController::class,'getBlog']);
+Route::get('admin/accept/blog/{id}',[AdminController::class,'acceptBlog']);
+
 

@@ -167,13 +167,17 @@ class TutorController extends Controller
         $new_tutor['avatar'] = $tutor->avatar;
         $new_tutor['certificate'] = $tutor->certificate;
         $new_tutor['active'] = $tutor->active;
-        if($tutor && Hash::check($password,$tutor->password)){
-            return response()->json([
-                'status' => 'Đăng nhập thành công',
-                'tutor' => $new_tutor
-            ]);
+        if($tutor->active == 0){
+            return response()->json(['danger'=>'Tài khoản của bạn đang chờ quản trị viên phê duyệt']);
         }else{
-            return response()->json(['errors'=>'Đăng nhập thất bại']);
+            if($tutor && Hash::check($password,$tutor->password)){
+                return response()->json([
+                    'status' => 'Đăng nhập thành công',
+                    'tutor' => $new_tutor
+                ]);
+            }else{
+                return response()->json(['errors'=>'Đăng nhập thất bại']);
+            }
         }
     }
 
