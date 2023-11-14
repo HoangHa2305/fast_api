@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 13, 2023 lúc 07:10 PM
+-- Thời gian đã tạo: Th10 14, 2023 lúc 07:41 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -1262,7 +1262,7 @@ CREATE TABLE `tutor` (
 
 INSERT INTO `tutor` (`id`, `username`, `email`, `password`, `name`, `phone`, `sex`, `birth`, `id_country`, `id_district`, `address`, `desc`, `role`, `time`, `level`, `special`, `id_class`, `id_subject`, `type`, `schedule`, `avatar`, `certificate`, `active`, `created_at`, `updated_at`) VALUES
 (1, 'tho', 'tho@gmail.com', '$2y$10$4K5U8dOqPrJ3NBBPqtFSFuH9V5tdivFaWa0tcQTS.TGz7vFcDxFfa', 'Phạm Đăc Thịnh', '0777118502', 'Nam', '2023-11-09', 2, 19, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'sinh vien', '150000', 'gioi', 'Math', 5, 34, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1698902069_avatar.png', '1698902069_certificate.png', 0, '2023-11-02 12:14:29', '2023-11-02 12:14:29'),
-(2, 'thịnh', '123@gmail.com', '$2y$10$XrNdkgYhauMfiNqKbzV57.RK7amA4d/vYh2Q7fW99667IfvZZNVJS', 'Nguyễn Văn A', '0777118502', 'Nam', '2002-12-04', 11, 125, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'dvsbsfb', 'Tutor', '120', 'gioi', 'Math', 8, 69, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699046553_avatar.png', '1699046553_certificate.png', 0, '2023-11-04 04:22:33', '2023-11-04 04:22:33'),
+(2, 'thịnh', 'hoangha2352@gmail.com\r\n', '$2y$10$XrNdkgYhauMfiNqKbzV57.RK7amA4d/vYh2Q7fW99667IfvZZNVJS', 'Nguyễn Văn A', '0777118502', 'Nam', '2002-12-04', 11, 125, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'dvsbsfb', 'Tutor', '120', 'gioi', 'Math', 8, 69, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699046553_avatar.png', '1699046553_certificate.png', 1, '2023-11-04 04:22:33', '2023-11-14 10:25:52'),
 (3, 'thịnh', 'nhathoa3062002@gmail.com', '$2y$10$yl05rrfmn22KO6JfoQuFZOp0Fm4bHtshJ8ZYL5yXhyyEwsfNz12ey', 'Phạm Đoàn Thuý Vy', '0777118502', 'Nam', '2002-12-03', 16, 173, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'IT', '200,000', 'good', 'Math', 12, 111, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699051738_avatar.png', '1699051738_certificate.png', 1, '2023-11-04 05:48:58', '2023-11-13 10:46:13');
 
 -- --------------------------------------------------------
