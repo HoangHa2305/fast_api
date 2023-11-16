@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\Country;
 use App\Models\District;
 use App\Models\Member;
+use App\Models\Schedule;
 use App\Models\Tutor;
 use App\Models\WishlistMember;
 use Illuminate\Http\Request;
@@ -206,6 +208,10 @@ class MemberController extends Controller
     public function paymentMomo(Request $request)
     {
         $total_momo = $request->total;
+        $id = $request->id;
+        $member = Member::findOrFail($id);
+        $member->active = 1;
+        $member->save();
 
         $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 
@@ -214,7 +220,7 @@ class MemberController extends Controller
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua ATM MoMo";
-        $amount = "100000";
+        $amount = "50000";
         $orderId = time() ."";
         $redirectUrl = "123";
         $ipnUrl = "123";
@@ -246,5 +252,51 @@ class MemberController extends Controller
         //Just a example, please check more in there
         return redirect()->to($jsonResult['payUrl']);
         // header('Location: ' . $jsonResult['payUrl']);
+    }
+
+    public function getAppointment(string $id)
+    {
+        $appointments = Schedule::where('id_member',$id)->where('active',0)->get();
+        $schedule = [];
+
+        foreach($appointments as $appointment){
+            $data['id'] = $appointment->id;
+            $data['name'] = $appointment->tutor->name;
+            $data['avatar'] = $appointment->tutor->avatar;
+            $data['id_blog'] = $appointment->id_blog;
+
+            $schedule[] = $data;
+        }
+
+        return response()->json(['appointment'=>$schedule]);
+    }
+
+    public function acceptAppointment(string $id)
+    {
+        $appointment = Schedule::findOrFail($id);
+        $appointment->active = 2;
+        $appointment->save();
+        return response()->json(['success',200]);
+    }
+
+    public function destroyAppointment(Request $request)
+    {
+        $id_appoint = $request->id_appoint;
+        $id_blog = $request->id_blog;
+
+        $appointment = Schedule::findOrFail($id_appoint);
+        $appointment->active = 1;
+        $appointment->save();
+
+        $blog = Blog::findOrFail($id_blog);
+        $blog->active = 1;
+        $blog->save();
+        return response()->json(['success',200]);
+    }
+
+    public function detailAppointment(string $id)
+    {
+        $appointment = Schedule::findOrFail($id);
+        return response()->json(['appointment'=>$appointment]);
     }
 }

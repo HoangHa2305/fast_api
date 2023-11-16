@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 14, 2023 lúc 07:41 PM
+-- Thời gian đã tạo: Th10 16, 2023 lúc 04:53 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -948,7 +948,7 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `name`, `password`, `id_country`, `id_district`, `email`, `phone`, `address`, `level`, `active`, `created_at`, `updated_at`) VALUES
-(3, 'Đắc Thịnh', '$2y$10$ZQ6ekGEPUxvTShrQebbkEuKTfp6TTPNdKn7UtFqNXtknfRz.3hzTK', 2, 2, 'hha.20it10@gamil.com', '0935386494', 'K41/25 đặng thùy trâm', 1, 0, '2023-10-10 10:24:45', '2023-10-16 11:35:24'),
+(3, 'Đắc Thịnh', '$2y$10$JNRamz7yqjlc.OxA4wDkeepF2RN.o2ItCVs/ne3Hf1qubQaWMo2Xi', 2, 2, 'hha.20it10@vku.udn.vn', '0935386494', 'K41/25 đặng thùy trâm', 1, 0, '2023-10-10 10:24:45', '2023-11-15 07:04:47'),
 (13, 'Phạm Đoàn Thuý Vy2222', '$2y$10$nsB8080PNiNLlk5EsG2mq.QxvjewNBuiSl57LPagAMrCdYKXvWwuG', 3, 52, 'thinhpd1805@gmail.com', '0777118502', 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 0, 0, '2023-11-04 16:09:28', '2023-11-04 16:12:35');
 
 -- --------------------------------------------------------
@@ -986,7 +986,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2023_11_05_185341_create_schedule_table', 12),
 (17, '2023_11_09_173735_create_rate_table', 13),
 (18, '2023_11_09_174904_create_comment_table', 14),
-(19, '2014_10_12_100000_create_password_resets_table', 15);
+(19, '2014_10_12_100000_create_password_resets_table', 15),
+(20, '2023_11_16_101511_update_rate_tutor_table', 16);
 
 -- --------------------------------------------------------
 
@@ -1242,6 +1243,7 @@ CREATE TABLE `tutor` (
   `address` varchar(255) NOT NULL,
   `desc` text NOT NULL,
   `role` varchar(255) NOT NULL,
+  `rate` int(11) NOT NULL,
   `time` varchar(255) NOT NULL,
   `level` varchar(255) NOT NULL,
   `special` varchar(255) NOT NULL,
@@ -1260,10 +1262,10 @@ CREATE TABLE `tutor` (
 -- Đang đổ dữ liệu cho bảng `tutor`
 --
 
-INSERT INTO `tutor` (`id`, `username`, `email`, `password`, `name`, `phone`, `sex`, `birth`, `id_country`, `id_district`, `address`, `desc`, `role`, `time`, `level`, `special`, `id_class`, `id_subject`, `type`, `schedule`, `avatar`, `certificate`, `active`, `created_at`, `updated_at`) VALUES
-(1, 'tho', 'tho@gmail.com', '$2y$10$4K5U8dOqPrJ3NBBPqtFSFuH9V5tdivFaWa0tcQTS.TGz7vFcDxFfa', 'Phạm Đăc Thịnh', '0777118502', 'Nam', '2023-11-09', 2, 19, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'sinh vien', '150000', 'gioi', 'Math', 5, 34, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1698902069_avatar.png', '1698902069_certificate.png', 0, '2023-11-02 12:14:29', '2023-11-02 12:14:29'),
-(2, 'thịnh', 'hoangha2352@gmail.com\r\n', '$2y$10$XrNdkgYhauMfiNqKbzV57.RK7amA4d/vYh2Q7fW99667IfvZZNVJS', 'Nguyễn Văn A', '0777118502', 'Nam', '2002-12-04', 11, 125, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'dvsbsfb', 'Tutor', '120', 'gioi', 'Math', 8, 69, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699046553_avatar.png', '1699046553_certificate.png', 1, '2023-11-04 04:22:33', '2023-11-14 10:25:52'),
-(3, 'thịnh', 'nhathoa3062002@gmail.com', '$2y$10$yl05rrfmn22KO6JfoQuFZOp0Fm4bHtshJ8ZYL5yXhyyEwsfNz12ey', 'Phạm Đoàn Thuý Vy', '0777118502', 'Nam', '2002-12-03', 16, 173, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'IT', '200,000', 'good', 'Math', 12, 111, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699051738_avatar.png', '1699051738_certificate.png', 1, '2023-11-04 05:48:58', '2023-11-13 10:46:13');
+INSERT INTO `tutor` (`id`, `username`, `email`, `password`, `name`, `phone`, `sex`, `birth`, `id_country`, `id_district`, `address`, `desc`, `role`, `rate`, `time`, `level`, `special`, `id_class`, `id_subject`, `type`, `schedule`, `avatar`, `certificate`, `active`, `created_at`, `updated_at`) VALUES
+(1, 'tho', 'tho@gmail.com', '$2y$10$4K5U8dOqPrJ3NBBPqtFSFuH9V5tdivFaWa0tcQTS.TGz7vFcDxFfa', 'Phạm Đăc Thịnh', '0777118502', 'Nam', '2023-11-09', 2, 19, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'sinh vien', 0, '150000', 'gioi', 'Math', 5, 34, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1698902069_avatar.png', '1698902069_certificate.png', 0, '2023-11-02 12:14:29', '2023-11-02 12:14:29'),
+(2, 'thịnh', 'hoangha2352@gmail.com\r\n\r\n', '$2y$10$XrNdkgYhauMfiNqKbzV57.RK7amA4d/vYh2Q7fW99667IfvZZNVJS', 'Nguyễn Văn A', '0777118502', 'Nam', '2002-12-04', 11, 125, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'dvsbsfb', 'Tutor', 0, '120', 'gioi', 'Math', 8, 69, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699046553_avatar.png', '1699046553_certificate.png', 1, '2023-11-04 04:22:33', '2023-11-14 10:25:52'),
+(3, 'thịnh', 'nhathoa3062002@gmail.com', '$2y$10$yl05rrfmn22KO6JfoQuFZOp0Fm4bHtshJ8ZYL5yXhyyEwsfNz12ey', 'Phạm Đoàn Thuý Vy', '0777118502', 'Nam', '2002-12-03', 16, 173, 'k42/38 Nguyễn Thành Hãn phường Hoà Thuận Tây , quận Hải Châu', 'I am an active person, and have quite good communication skills', 'IT', 0, '200,000', 'good', 'Math', 12, 111, 'Online', 'lịch rảnh của tôi vào thứ 2 và thứ 4 và thứ 7', '1699051738_avatar.png', '1699051738_certificate.png', 1, '2023-11-04 05:48:58', '2023-11-13 10:46:13');
 
 -- --------------------------------------------------------
 
@@ -1509,7 +1511,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `personal_access_tokens`
